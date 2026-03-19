@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Brasa Park - Cadastro de Atrações</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #ff6a00, #ffb347);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6a00;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #444;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: none;
+            height: 80px;
+        }
+
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .row .field {
+            flex: 1;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff6a00;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #e85c00;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Brasa Park</h1>
+        <h2>Cadastro de Atrações</h2>
+
+        <form>
+            <label for="nome">Nome da Atração</label>
+            <input type="text" id="nome" placeholder="Ex: Montanha Radical" required>
+
+            <label for="descricao">Descrição</label>
+            <textarea id="descricao" placeholder="Descreva a atração"></textarea>
+
+            <div class="row">
+                <div class="field">
+                    <label for="tipo">Tipo</label>
+                    <select id="tipo">
+                        <option>Radical</option>
+                        <option>Familiar</option>
+                        <option>Infantil</option>
+                        <option>Aquática</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="altura">Altura mínima (cm)</label>
+                    <input type="number" id="altura" placeholder="Ex: 120">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label for="capacidade">Capacidade (pessoas)</label>
+                    <input type="number" id="capacidade" placeholder="Ex: 20">
+                </div>
+
+                <div class="field">
+                    <label for="status">Status</label>
+                    <select id="status">
+                        <option>Ativa</option>
+                        <option>Em manutenção</option>
+                        <option>Inativa</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit">Cadastrar Atração</button>
+        </form>
+
+
+        <footer>
+            © 2026 Brasa Park - Sistema de Cadastro
+        </footer>
+    </div>
+
+</body>
+</html>
