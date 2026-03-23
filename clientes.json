@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "nome": "João Silva",
+    "email": "joao@gmail.com",
+    "telefone": "(83) 99999-9999",
+    "dataCadastro": "2026-03-23T10:30:00"
+  },
+  {
+    "id": 2,
+    "nome": "Maria Souza",
+    "email": "maria@gmail.com",
+    "telefone": "(83) 98888-8888",
+    "dataCadastro": "2026-03-23T11:00:00"
+  }
+]
