@@ -6,16 +6,28 @@ export function configurarCadastro() {
 
         const nome = document.getElementById("nome").value;
         const email = document.getElementById("email").value;
+        const telefone = document.getElementById("telefone").value;
 
-        if (!nome || !email) {
-            alert("Preencha todos os campos!");
-            return;
-        }
+        const novoCliente = {
+            id: Date.now(),
+            nome,
+            email,
+            telefone,
+            dataCadastro: new Date().toISOString()
+        };
 
-        console.log("Usuário cadastrado:", { nome, email });
+        // pega dados já salvos
+        const clientes = JSON.parse(localStorage.getItem("clientes")) || [];
+
+        // adiciona novo cliente
+        clientes.push(novoCliente);
+
+        // salva novamente
+        localStorage.setItem("clientes", JSON.stringify(clientes));
+
+        console.log("Cliente salvo:", novoCliente);
 
         alert("Cadastro realizado com sucesso!");
-
         form.reset();
     });
 }
