@@ -9,3 +9,6 @@ if (document.getElementById("lista-atracoes")) {
 if (document.querySelector("form")) {
     configurarCadastro();
 }
+import { configurarFormularioAtracao } from "./atracoesForm.js";
+
+configurarFormularioAtracao();
