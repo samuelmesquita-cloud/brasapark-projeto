@@ -1,299 +1,498 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <title>Brasa Park - Cadastro de Atrações</title>
-
-
-
-    <style>
-
-        body {
-
-            font-family: Arial, Helvetica, sans-serif;
-
-            background: linear-gradient(135deg, #ff6a00, #ffb347);
-
-            margin: 0;
-
-            padding: 0;
-
-        }
-
-
-
-        .container {
-
-            max-width: 600px;
-
-            margin: 50px auto;
-
-            background-color: #ffffff;
-
-            padding: 30px;
-
-            border-radius: 10px;
-
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-
-        }
-
-
-
-        h1 {
-
-            text-align: center;
-
-            color: #ff6a00;
-
-            margin-bottom: 10px;
-
-        }
-
-
-
-        h2 {
-
-            text-align: center;
-
-            color: #444;
-
-            margin-bottom: 30px;
-
-            font-size: 18px;
-
-        }
-
-
-
-        label {
-
-            display: block;
-
-            margin-bottom: 5px;
-
-            font-weight: bold;
-
-            color: #333;
-
-        }
-
-
-
-        input, select, textarea {
-
-            width: 100%;
-
-            padding: 10px;
-
-            margin-bottom: 20px;
-
-            border-radius: 5px;
-
-            border: 1px solid #ccc;
-
-            font-size: 14px;
-
-        }
-
-
-
-        textarea {
-
-            resize: none;
-
-            height: 80px;
-
-        }
-
-
-
-        .row {
-
-            display: flex;
-
-            gap: 15px;
-
-        }
-
-
-
-        .row .field {
-
-            flex: 1;
-
-        }
-
-
-
-        button {
-
-            width: 100%;
-
-            padding: 12px;
-
-            background-color: #ff6a00;
-
-            border: none;
-
-            border-radius: 5px;
-
-            color: white;
-
-            font-size: 16px;
-
-            cursor: pointer;
-
-            font-weight: bold;
-
-        }
-
-
-
-        button:hover {
-
-            background-color: #e85c00;
-
-        }
-
-
-
-        footer {
-
-            text-align: center;
-
-            margin-top: 20px;
-
-            font-size: 12px;
-
-            color: #666;
-
-        }
-
-    </style>
-
+  <meta charset="UTF-8">
+  <title>Brasa Park - Cadastro de Atrações</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --orange:  #F97316;
+      --amber:   #FBBF24;
+      --dark:    #09090f;
+      --surface: #0f0f1b;
+      --card:    #141420;
+      --border:  rgba(249,115,22,0.18);
+      --border2: rgba(255,255,255,0.07);
+      --muted:   rgba(255,255,255,0.42);
+      --text:    #ede9f8;
+      --green:   #22c55e;
+      --red:     #ef4444;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+    }
+
+    /* ── Atmospheric glows ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 65% 50% at 0% 0%,   rgba(249,115,22,0.20) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 45% at 100% 100%, rgba(251,191,36,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse 35% 40% at 60%  40%,  rgba(139,92,246,0.06) 0%, transparent 60%);
+    }
+
+    /* grain */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+
+    /* ══════════════ LAYOUT ══════════════ */
+    .page {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      width: 100%;
+    }
+
+    /* ══════════════ SIDEBAR ══════════════ */
+    .sidebar {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 48px 36px;
+      display: flex; flex-direction: column;
+      position: sticky; top: 0; height: 100vh;
+      overflow: hidden;
+    }
+
+    .sidebar::after {
+      content: '';
+      position: absolute; bottom: -120px; left: -120px;
+      width: 360px; height: 360px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(249,115,22,0.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* brand */
+    .brand { display: flex; align-items: center; gap: 13px; margin-bottom: 56px; }
+    .brand-orb {
+      width: 44px; height: 44px; border-radius: 14px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--orange), var(--amber));
+      display: grid; place-items: center; font-size: 22px;
+      box-shadow: 0 0 24px rgba(249,115,22,0.5), inset 0 1px 0 rgba(255,255,255,0.2);
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+    @keyframes glowPulse {
+      0%,100% { box-shadow: 0 0 24px rgba(249,115,22,0.5); }
+      50%      { box-shadow: 0 0 48px rgba(249,115,22,0.8), 0 0 90px rgba(249,115,22,0.18); }
+    }
+    .brand-info { line-height: 1; }
+    .brand-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1.5px; }
+    .brand-sub  { font-size: 10px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-top: 3px; display: block; }
+
+    /* heading */
+    .sb-label {
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--orange); font-weight: 600; margin-bottom: 12px;
+    }
+    .sb-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 62px; line-height: 0.9; letter-spacing: 0.5px;
+      margin-bottom: 22px;
+    }
+    .sb-title .outline {
+      -webkit-text-stroke: 1.5px var(--orange);
+      color: transparent; display: block;
+    }
+    .sb-title .fill { color: var(--orange); display: block; }
+
+    .sb-desc {
+      font-size: 13px; color: var(--muted); line-height: 1.75;
+      border-left: 2px solid rgba(249,115,22,0.3);
+      padding-left: 14px;
+      margin-bottom: 40px;
+    }
+
+    /* steps */
+    .steps { display: flex; flex-direction: column; gap: 13px; margin-bottom: auto; }
+    .step  { display: flex; align-items: center; gap: 12px; font-size: 12.5px; color: var(--muted); }
+    .step-dot {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      border: 1px solid rgba(249,115,22,0.3);
+      display: grid; place-items: center;
+      font-size: 10px; color: var(--orange); font-weight: 700;
+    }
+    .step.active .step-dot {
+      background: rgba(249,115,22,0.15); border-color: var(--orange);
+    }
+    .step.active { color: var(--text); }
+
+    .sb-badge {
+      margin-top: 36px;
+      display: inline-flex; align-items: center; gap: 9px;
+      background: rgba(34,197,94,0.08);
+      border: 1px solid rgba(34,197,94,0.22);
+      border-radius: 999px; padding: 8px 18px;
+      font-size: 11.5px; color: #4ade80;
+      width: fit-content;
+    }
+    .sb-badge-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--green);
+      animation: blink 1.8s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* ══════════════ MAIN ══════════════ */
+    .main {
+      padding: 48px 60px;
+      display: flex; flex-direction: column;
+    }
+
+    /* topbar */
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 36px; padding-bottom: 22px;
+      border-bottom: 1px solid var(--border2);
+    }
+    .crumb { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted); }
+    .crumb strong { color: var(--orange); font-weight: 500; }
+
+    .user-chip {
+      display: flex; align-items: center; gap: 9px;
+      background: var(--card); border: 1px solid var(--border2);
+      border-radius: 999px; padding: 5px 14px 5px 6px;
+      font-size: 13px; color: var(--muted);
+    }
+    .user-av {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--orange), var(--amber));
+      display: grid; place-items: center; font-size: 13px;
+    }
+
+    /* ══ CARD ══ */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+      animation: slideUp .55s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes slideUp {
+      from { opacity:0; transform:translateY(30px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* glowing top line */
+    .card-line {
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--orange) 30%, var(--amber) 60%, transparent 100%);
+    }
+
+    .card-body { padding: 44px 48px; }
+
+    .card-header { margin-bottom: 36px; }
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 24px; font-weight: 800; margin-bottom: 4px;
+    }
+    .card-sub { font-size: 13px; color: var(--muted); }
+
+    /* ── Section label ── */
+    .section-sep {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--orange); font-weight: 600;
+      margin: 30px 0 20px;
+    }
+    .section-sep::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(90deg, rgba(249,115,22,0.3), transparent);
+    }
+
+    /* ── Fields ── */
+    .field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 20px; }
+    .field:last-child { margin-bottom: 0; }
+
+    .field label {
+      font-size: 10.5px; font-weight: 600; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 11px;
+      padding: 13px 16px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .2s, background .2s, box-shadow .2s;
+      width: 100%;
+    }
+    .field input::placeholder,
+    .field textarea::placeholder { color: rgba(255,255,255,0.18); }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--orange);
+      background: rgba(249,115,22,0.06);
+      box-shadow: 0 0 0 3px rgba(249,115,22,0.14);
+    }
+    .field select {
+      appearance: none; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f97316' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 16px center;
+      padding-right: 40px;
+    }
+    .field select option { background: #1a1a2a; }
+    .field textarea { resize: vertical; min-height: 88px; }
+
+    /* row */
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    /* status pill indicator on select */
+    .status-wrap { position: relative; }
+    .status-indicator {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      width: 8px; height: 8px; border-radius: 50%; background: var(--green);
+      pointer-events: none; transition: background .3s;
+    }
+    .status-wrap select { padding-left: 32px; }
+
+    /* ── Actions ── */
+    .form-footer {
+      display: flex; align-items: center; justify-content: flex-end;
+      gap: 12px; margin-top: 36px; padding-top: 28px;
+      border-top: 1px solid var(--border2);
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px; border-radius: 11px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px; font-weight: 500;
+      cursor: pointer; border: none; outline: none;
+      transition: all .2s;
+    }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted);
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.22); color: var(--text); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--orange) 0%, #e05c00 100%);
+      color: #fff; font-weight: 600;
+      box-shadow: 0 4px 22px rgba(249,115,22,0.38);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(249,115,22,0.55); }
+    .btn-primary:active { transform: translateY(0); }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--orange);
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: flex; align-items: center; gap: 13px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.55);
+      transform: translateX(140%);
+      transition: transform .4s cubic-bezier(.22,1,.36,1);
+      max-width: 300px;
+    }
+    .toast.show { transform: translateX(0); }
+    .toast-icon { font-size: 22px; }
+    .toast-text strong { font-size: 14px; display: block; margin-bottom: 2px; }
+    .toast-text span { font-size: 12px; color: var(--muted); }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: rgba(249,115,22,0.35); border-radius: 99px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .page { grid-template-columns: 1fr; }
+      .sidebar { position: relative; height: auto; padding: 32px 28px; }
+      .sb-title { font-size: 44px; }
+      .main { padding: 32px 24px; }
+      .card-body { padding: 32px 24px; }
+      .row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
-
-
 <body>
 
+<div class="page">
 
-
-    <div class="container">
-
-        <h1>Brasa Park</h1>
-
-        <h2>Cadastro de Atrações</h2>
-
-
-
-        <form>
-
-            <label for="nome">Nome da Atração</label>
-
-            <input type="text" id="nome" placeholder="Ex: Montanha Radical" required>
-
-
-
-            <label for="descricao">Descrição</label>
-
-            <textarea id="descricao" placeholder="Descreva a atração"></textarea>
-
-
-
-            <div class="row">
-
-                <div class="field">
-
-                    <label for="tipo">Tipo</label>
-
-                    <select id="tipo">
-
-                        <option>Radical</option>
-
-                        <option>Familiar</option>
-
-                        <option>Infantil</option>
-
-                        <option>Aquática</option>
-
-                    </select>
-
-                </div>
-
-
-
-                <div class="field">
-
-                    <label for="altura">Altura mínima (cm)</label>
-
-                    <input type="number" id="altura" placeholder="Ex: 120">
-
-                </div>
-
-            </div>
-
-
-
-            <div class="row">
-
-                <div class="field">
-
-                    <label for="capacidade">Capacidade (pessoas)</label>
-
-                    <input type="number" id="capacidade" placeholder="Ex: 20">
-
-                </div>
-
-
-
-                <div class="field">
-
-                    <label for="status">Status</label>
-
-                    <select id="status">
-
-                        <option>Ativa</option>
-
-                        <option>Em manutenção</option>
-
-                        <option>Inativa</option>
-
-                    </select>
-
-                </div>
-
-            </div>
-
-
-
-            <button type="submit">Cadastrar Atração</button>
-
-        </form>
-
-
-
-
-
-        <footer>
-
-            © 2026 Brasa Park - Sistema de Cadastro
-
-        </footer>
-
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-orb">🎡</div>
+      <div class="brand-info">
+        <div class="brand-name">BrasaPark</div>
+        <span class="brand-sub">Painel Interno</span>
+      </div>
     </div>
 
+    <p class="sb-label">Gestão de Atrações</p>
+    <h1 class="sb-title">
+      <span class="outline">CADASTRO</span>
+      <span class="fill">ATRAÇÃO</span>
+    </h1>
+    <p class="sb-desc">
+      Adicione novas atrações ao sistema do parque. Preencha todas as informações para garantir a melhor experiência aos visitantes.
+    </p>
 
+    <div class="steps">
+      <div class="step active">
+        <div class="step-dot">1</div>
+        Informações da atração
+      </div>
+      <div class="step active">
+        <div class="step-dot">2</div>
+        Restrições e capacidade
+      </div>
+      <div class="step">
+        <div class="step-dot">3</div>
+        Confirmar e salvar
+      </div>
+    </div>
+
+    <div class="sb-badge">
+      <div class="sb-badge-dot"></div>
+      Sistema operacional
+    </div>
+  </aside>
+
+  <!-- ══ MAIN ══ -->
+  <main class="main">
+    <div class="topbar">
+      <div class="crumb">
+        Início <span style="opacity:.4">›</span> Atrações <span style="opacity:.4">›</span> <strong>Nova Atração</strong>
+      </div>
+      <div class="user-chip">
+        <div class="user-av">👤</div>
+        Funcionário
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-line"></div>
+      <div class="card-body">
+
+        <div class="card-header">
+          <div class="card-title">Nova Atração</div>
+          <div class="card-sub">Preencha os dados abaixo para cadastrar a atração no sistema do BrasaPark.</div>
+        </div>
+
+        <form id="form" novalidate>
+
+          <!-- BÁSICO -->
+          <div class="section-sep">Informações Básicas</div>
+
+          <div class="field">
+            <label for="nome">Nome da Atração</label>
+            <input type="text" id="nome" placeholder="Ex: Montanha Radical" required>
+          </div>
+
+          <div class="field">
+            <label for="descricao">Descrição</label>
+            <textarea id="descricao" placeholder="Descreva a atração, suas características e o que esperar..."></textarea>
+          </div>
+
+          <!-- DETALHES -->
+          <div class="section-sep">Restrições & Capacidade</div>
+
+          <div class="row">
+            <div class="field">
+              <label for="tipo">Tipo</label>
+              <select id="tipo">
+                <option value="radical">🎢 Radical</option>
+                <option value="familiar">👨‍👩‍👧 Familiar</option>
+                <option value="infantil">🎠 Infantil</option>
+                <option value="aquatica">💦 Aquática</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="altura">Altura Mínima (cm)</label>
+              <input type="number" id="altura" placeholder="Ex: 120" min="0" max="300">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="capacidade">Capacidade (pessoas)</label>
+              <input type="number" id="capacidade" placeholder="Ex: 20" min="1">
+            </div>
+
+            <div class="field">
+              <label for="status">Status</label>
+              <div class="status-wrap">
+                <div class="status-indicator" id="statusDot"></div>
+                <select id="status" onchange="updateDot()">
+                  <option value="ativa">Ativa</option>
+                  <option value="manutencao">Em manutenção</option>
+                  <option value="inativa">Inativa</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- FOOTER -->
+          <div class="form-footer">
+            <button type="button" class="btn btn-ghost" onclick="resetForm()">Cancelar</button>
+            <button type="submit" class="btn btn-primary">✦ Cadastrar Atração</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <div class="toast-icon">🎉</div>
+  <div class="toast-text">
+    <strong>Atração cadastrada!</strong>
+    <span>Salva com sucesso no sistema.</span>
+  </div>
+</div>
 
 <script type="module" src="js/main.js"></script>
 
-    
+<script>
+  const dotColors = { ativa: '#22c55e', manutencao: '#f59e0b', inativa: '#ef4444' };
 
+  function updateDot() {
+    const val = document.getElementById('status').value;
+    document.getElementById('statusDot').style.background = dotColors[val];
+  }
+
+  document.getElementById('form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const nome = document.getElementById('nome');
+    if (!nome.value.trim()) {
+      nome.style.borderColor = '#ef4444';
+      nome.style.boxShadow  = '0 0 0 3px rgba(239,68,68,0.15)';
+      setTimeout(() => { nome.style.borderColor = ''; nome.style.boxShadow = ''; }, 2000);
+      return;
+    }
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3500);
+    setTimeout(() => this.reset(), 500);
+  });
+
+  function resetForm() { document.getElementById('form').reset(); updateDot(); }
+
+  updateDot();
+</script>
 </body>
-
 </html>
