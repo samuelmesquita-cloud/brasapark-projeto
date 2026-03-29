@@ -1,233 +1,299 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brasa Park - Cadastro de Atrações</title>
 
-<style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: linear-gradient(135deg, #ff6a00, #ff9a3c);
-}
+    <meta charset="UTF-8">
 
-/* HEADER */
-header {
-    text-align: center;
-    color: white;
-    padding: 20px;
-}
+    <title>Brasa Park - Cadastro de Atrações</title>
 
-/* CONTAINER */
-.container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
 
-/* FORM */
-form {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    width: 450px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
 
-h2 {
-    text-align: center;
-    color: #ff6a00;
-}
+    <style>
 
-/* INPUTS */
-.input-group {
-    margin-bottom: 15px;
-}
+        body {
 
-label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-}
+            font-family: Arial, Helvetica, sans-serif;
 
-input, select, textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
+            background: linear-gradient(135deg, #ff6a00, #ffb347);
 
-/* GRID */
-.grid {
-    display: flex;
-    gap: 10px;
-}
+            margin: 0;
 
-/* BOTÃO */
-button {
-    width: 100%;
-    padding: 12px;
-    background: #ff6a00;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-}
+            padding: 0;
 
-button:hover {
-    background: #e85c00;
-    transform: scale(1.03);
-}
+        }
 
-/* LISTA */
-.lista {
-    margin-top: 20px;
-}
 
-.card {
-    background: #fff3e6;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
 
-/* FOOTER */
-footer {
-    text-align: center;
-    margin-top: 20px;
-    color: white;
-}
-</style>
+        .container {
+
+            max-width: 600px;
+
+            margin: 50px auto;
+
+            background-color: #ffffff;
+
+            padding: 30px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+        }
+
+
+
+        h1 {
+
+            text-align: center;
+
+            color: #ff6a00;
+
+            margin-bottom: 10px;
+
+        }
+
+
+
+        h2 {
+
+            text-align: center;
+
+            color: #444;
+
+            margin-bottom: 30px;
+
+            font-size: 18px;
+
+        }
+
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            font-weight: bold;
+
+            color: #333;
+
+        }
+
+
+
+        input, select, textarea {
+
+            width: 100%;
+
+            padding: 10px;
+
+            margin-bottom: 20px;
+
+            border-radius: 5px;
+
+            border: 1px solid #ccc;
+
+            font-size: 14px;
+
+        }
+
+
+
+        textarea {
+
+            resize: none;
+
+            height: 80px;
+
+        }
+
+
+
+        .row {
+
+            display: flex;
+
+            gap: 15px;
+
+        }
+
+
+
+        .row .field {
+
+            flex: 1;
+
+        }
+
+
+
+        button {
+
+            width: 100%;
+
+            padding: 12px;
+
+            background-color: #ff6a00;
+
+            border: none;
+
+            border-radius: 5px;
+
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+        }
+
+
+
+        button:hover {
+
+            background-color: #e85c00;
+
+        }
+
+
+
+        footer {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            font-size: 12px;
+
+            color: #666;
+
+        }
+
+    </style>
+
 </head>
+
+
 
 <body>
 
-<header>
-    <h1>🔥 Brasa Park</h1>
-    <p>Cadastro de Atrações</p>
-</header>
 
-<div class="container">
-    <form id="form-atracao">
-        <h2>Nova Atração</h2>
 
-        <div class="input-group">
-            <label>Nome</label>
-            <input type="text" id="nome">
-        </div>
+    <div class="container">
 
-        <div class="input-group">
-            <label>Descrição</label>
-            <textarea id="descricao"></textarea>
-        </div>
+        <h1>Brasa Park</h1>
 
-        <div class="grid">
-            <div class="input-group">
-                <label>Tipo</label>
-                <select id="tipo">
-                    <option>Radical</option>
-                    <option>Familiar</option>
-                    <option>Infantil</option>
-                </select>
+        <h2>Cadastro de Atrações</h2>
+
+
+
+        <form>
+
+            <label for="nome">Nome da Atração</label>
+
+            <input type="text" id="nome" placeholder="Ex: Montanha Radical" required>
+
+
+
+            <label for="descricao">Descrição</label>
+
+            <textarea id="descricao" placeholder="Descreva a atração"></textarea>
+
+
+
+            <div class="row">
+
+                <div class="field">
+
+                    <label for="tipo">Tipo</label>
+
+                    <select id="tipo">
+
+                        <option>Radical</option>
+
+                        <option>Familiar</option>
+
+                        <option>Infantil</option>
+
+                        <option>Aquática</option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="field">
+
+                    <label for="altura">Altura mínima (cm)</label>
+
+                    <input type="number" id="altura" placeholder="Ex: 120">
+
+                </div>
+
             </div>
 
-            <div class="input-group">
-                <label>Altura mínima</label>
-                <input type="number" id="altura">
+
+
+            <div class="row">
+
+                <div class="field">
+
+                    <label for="capacidade">Capacidade (pessoas)</label>
+
+                    <input type="number" id="capacidade" placeholder="Ex: 20">
+
+                </div>
+
+
+
+                <div class="field">
+
+                    <label for="status">Status</label>
+
+                    <select id="status">
+
+                        <option>Ativa</option>
+
+                        <option>Em manutenção</option>
+
+                        <option>Inativa</option>
+
+                    </select>
+
+                </div>
+
             </div>
-        </div>
 
-        <div class="grid">
-            <div class="input-group">
-                <label>Capacidade</label>
-                <input type="number" id="capacidade">
-            </div>
 
-            <div class="input-group">
-                <label>Status</label>
-                <select id="status">
-                    <option>Ativa</option>
-                    <option>Manutenção</option>
-                    <option>Inativa</option>
-                </select>
-            </div>
-        </div>
 
-        <button type="submit">Cadastrar</button>
+            <button type="submit">Cadastrar Atração</button>
 
-        <div class="lista" id="lista"></div>
-    </form>
-</div>
+        </form>
 
-<footer>
-    © 2026 Brasa Park
-</footer>
 
-<script>
-// EVENTO DO FORMULÁRIO
-document.getElementById("form-atracao").addEventListener("submit", function(e) {
-    e.preventDefault();
 
-    const nome = document.getElementById("nome").value;
-    const descricao = document.getElementById("descricao").value;
-    const tipo = document.getElementById("tipo").value;
-    const altura = document.getElementById("altura").value;
-    const capacidade = document.getElementById("capacidade").value;
-    const status = document.getElementById("status").value;
 
-    if (!nome || !descricao) {
-        alert("Preencha os campos obrigatórios!");
-        return;
-    }
 
-    const novaAtracao = {
-        id: Date.now(),
-        nome,
-        descricao,
-        tipo,
-        altura,
-        capacidade,
-        status
-    };
+        <footer>
 
-    // SALVAR
-    let atracoes = JSON.parse(localStorage.getItem("atracoes")) || [];
-    atracoes.push(novaAtracao);
-    localStorage.setItem("atracoes", JSON.stringify(atracoes));
+            © 2026 Brasa Park - Sistema de Cadastro
 
-    mostrarAtracoes();
+        </footer>
 
-    alert("Atração cadastrada!");
-    this.reset();
-});
+    </div>
 
-// MOSTRAR NA TELA
-function mostrarAtracoes() {
-    const lista = document.getElementById("lista");
-    lista.innerHTML = "";
 
-    const atracoes = JSON.parse(localStorage.getItem("atracoes")) || [];
 
-    atracoes.forEach(a => {
-        const div = document.createElement("div");
-        div.classList.add("card");
+<script type="module" src="js/main.js"></script>
 
-        div.innerHTML = `
-            <strong>${a.nome}</strong>
-            <p>${a.descricao}</p>
-            <small>${a.tipo} | Altura: ${a.altura}cm</small>
-        `;
-
-        lista.appendChild(div);
-    });
-}
-
-// carregar ao abrir
-mostrarAtracoes();
-</script>
+    
 
 </body>
+
 </html>
