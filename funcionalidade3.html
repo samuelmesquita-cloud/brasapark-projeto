@@ -1,100 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro Brasa Park</title>
-  <link rel="stylesheet" href="style2.css">
-  <style>
-    /* Corpo da página */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #0b6fa4; /* azul do fundo */
-      text-align: center;
-    }
-    
-    /* Título */
-    h1 {
-      background-color: #ff4b3a; /* vermelho */
-      color: black;
-      padding: 20px;
-      border-radius: 40px;
-      width: 80%;
-      margin: 30px auto;
-      font-size: 22px;
-    }
-    
-    /* Formulário */
-    form {
-      background-color: white;
-      width: 80%;
-      margin: 0 auto;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    
-    /* Labels */
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-      text-align: left;
-    }
-    
-    /* Inputs */
-    input {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border-radius: 20px;
-      border: 1px solid #ccc;
-    }
-    
-    /* Botão */
-    button {
-      margin-top: 20px;
-      background-color: #ff4b3a;
-      color: white;
-      border: none;
-      padding: 10px 30px;
-      border-radius: 20px;
-      cursor: pointer;
-    }
-    
-    /* Ajuste da imagem final (logo) */
-    img {
-      display: block;
-      width: 260px;           /* tamanho parecido com o exemplo */
-      margin: 30px auto 0;    /* centraliza e cria espaço do formulário */
-    }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Brasa Park</title>
+    <link rel="stylesheet" href="style2.css">
 </head>
 <body>
+    <div class="background-overlay">
+        <main class="container">
+            <section class="info-side">
+                <div class="logo">
+                    <img src="logo.png" alt="Logo" class="brand-logo">
+                </div>
+                <div class="content-text">
+                    <h1>Criar <br> Nova Conta</h1>
+                    <hr class="divider">
+                    <p class="description">
+                        Faça seu cadastro para receber todas as nossas novidades e ofertas exclusivas do Brasa Park.
+                    </p>
+                </div>
+            </section>
 
-  <h1>Faça seu cadastro para receber todas as nossas novidades!</h1>
+            <section class="form-side">
+                <div class="glass-card">
+                    <h2>Login</h2>
+                    <form id="formCadastro">
+                        <div class="input-group">
+                            <label for="nome_cliente">NAME</label>
+                            <input type="text" id="nome_cliente" placeholder="João Silva" required>
+                        </div>
 
-  <form action="/example.html" method="POST">
-      <!-- Nome -->
-      <label for="nome">Nome</label>
-      <input type="text" name="nome" id="nome" placeholder="Exemplo: João Silva">
+                        <div class="input-group">
+                            <label for="email_cliente">EMAIL</label>
+                            <input type="email" id="email_cliente" placeholder="exemplo@gmail.com" required>
+                        </div>
 
-      <!-- Email -->
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email" placeholder="Exemplo: exemplo@gmail.com">
+                        <div class="input-group">
+                            <label for="telefone_cliente">PHONE</label>
+                            <input type="tel" id="telefone_cliente" placeholder="(11) 91234-5678" required>
+                        </div>
 
-      <!-- Telefone -->
-      <label for="telefone">Telefone</label>
-      <input type="tel" name="telefone" id="telefone" placeholder="Exemplo: (11) 91234-5678">
+                        <button type="submit" class="btn-main">Cadastrar</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
 
-      <!-- Botão para enviar -->
-      <button type="submit">Cadastrar</button>
-  </form>
-  <img src="imagens/logo.png" alt="Logo Brasa Park">
+    <div id="toast">Cadastro realizado com sucesso!✔️ </div>
 
-<script type="module" src="../js/cadastro.js"></script>
-  
+<script>
+    document.getElementById("formCadastro").addEventListener("submit", function(e) {
+        e.preventDefault(); 
+        const nome = document.getElementById("nome_cliente").value.trim();
+        const email = document.getElementById("email_cliente").value.trim();
+        const telefone = document.getElementById("telefone_cliente").value.trim();
+
+        if(nome && email && telefone) {
+            
+            const toast = document.getElementById("toast");
+            toast.classList.add("show");
+            
+            
+            setTimeout(function(){ 
+                toast.classList.remove("show"); 
+            }, 3000);
+
+           
+            
+        } else {
+            alert("Por favor, preencha todos os campos.");
+        }
+    });
+</script>
 </body>
 </html>
-
