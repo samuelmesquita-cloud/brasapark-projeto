@@ -3,16 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title>Brasa Park</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<h1>Cadastro de Atrações</h1>
+<div class="container">
+  <h1>🎢 Brasa Park</h1>
+  <p class="subtitle">Gerenciamento de atrações</p>
 
-<input type="text" id="nome" placeholder="Nome">
-<input type="text" id="descricao" placeholder="Descrição">
-<button onclick="adicionar()">Adicionar</button>
+  <div class="form">
+    <input type="text" id="nome" placeholder="Nome da atração">
+    <input type="text" id="descricao" placeholder="Descrição">
+    <button onclick="adicionar()">Adicionar</button>
+  </div>
 
-<ul id="lista"></ul>
+  <div id="lista" class="lista"></div>
+</div>
 
 <script src="js/script.js"></script>
 </body>
