@@ -8,12 +8,18 @@ function carregar() {
       lista.innerHTML = '';
 
       data.forEach(a => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-          ${a.nome} - ${a.descricao}
-          <button onclick="remover(${a.id})">Excluir</button>
+        const card = document.createElement('div');
+        card.classList.add('card');
+
+        card.innerHTML = `
+          <div class="card-info">
+            <strong>${a.nome}</strong>
+            <p>${a.descricao || ''}</p>
+          </div>
+          <button class="delete-btn" onclick="remover(${a.id})">Excluir</button>
         `;
-        lista.appendChild(li);
+
+        lista.appendChild(card);
       });
     });
 }
@@ -22,6 +28,11 @@ function adicionar() {
   const nome = document.getElementById('nome').value;
   const descricao = document.getElementById('descricao').value;
 
+  if (!nome) {
+    alert("Digite um nome!");
+    return;
+  }
+
   fetch(API, {
     method: 'POST',
     headers: {
@@ -29,7 +40,11 @@ function adicionar() {
     },
     body: JSON.stringify({ nome, descricao })
   })
-  .then(() => carregar());
+  .then(() => {
+    document.getElementById('nome').value = '';
+    document.getElementById('descricao').value = '';
+    carregar();
+  });
 }
 
 function remover(id) {
