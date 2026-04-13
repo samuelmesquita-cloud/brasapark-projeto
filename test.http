@@ -1,0 +1,16 @@
+GET http://localhost:3000/atracoes
+
+###
+POST http://localhost:3000/atracoes
+Content-Type: application/json
+
+{
+  "nome": "Roda Gigante",
+  "descricao": "Vista panorâmica"
+}
+
+###
+PUT http://localhost:3000/atracoes/ID_AQUI
+
+###
+DELETE http://localhost:3000/atracoes/ID_AQUI
