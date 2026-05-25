@@ -40,31 +40,4 @@ export async function mostrarAtracoes() {
 }
 
 
-// =======================
-// CADASTRAR ATRAÇÃO (POST)
-// =======================
-export function configurarCadastroAtracao() {
-  const form = document.getElementById("form-atracao");
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const atracao = {
-      nome: document.getElementById("nome").value,
-      descricao: document.getElementById("descricao").value,
-      tipo: document.getElementById("tipo").value,
-      alturaMin: Number(document.getElementById("altura").value),
-      capacidade: Number(document.getElementById("capacidade").value),
-      status: document.getElementById("status").value
-    };
-
-    await fetch(API, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(atracao)
-    });
-
-    alert("Atração cadastrada!");
-    form.reset();
-  });
-}
