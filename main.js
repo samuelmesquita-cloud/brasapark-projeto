@@ -5,17 +5,24 @@
 // Também inicializa o formulário de atrações, conectando os eventos necessários
 // para cadastro e manipulação de dados no localStorage.
 
-import { mostrarAtracoes } from "./atracoes.js";
-import { mostrarClientes } from "./clientes.js";
-import { formCliente, formAtracao } from "./forms.js";
+import { mostrarAtracoes, configurarCadastroAtracao } from "./atracoes.js";
+import { configurarCadastroCliente } from "./clientes.js";
 
-if (document.getElementById("lista-atracoes")) {
-  mostrarAtracoes();
-}
+document.addEventListener("DOMContentLoaded", () => {
 
-if (document.getElementById("lista-clientes")) {
-  mostrarClientes();
-}
+  // LISTAGEM ATRAÇÕES
+  if (document.getElementById("lista-atracoes")) {
+    mostrarAtracoes();
+  }
 
-formCliente();
-formAtracao();
+  // CADASTRO ATRAÇÕES
+  if (document.getElementById("form-atracao")) {
+    configurarCadastroAtracao();
+  }
+
+  // CADASTRO CLIENTES
+  if (document.getElementById("form-cliente")) {
+    configurarCadastroCliente();
+  }
+
+});
