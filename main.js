@@ -6,16 +6,16 @@
 // para cadastro e manipulação de dados no localStorage.
 
 import { mostrarAtracoes } from "./atracoes.js";
-import { configurarCadastro } from "./cadastro.js";
+import { mostrarClientes } from "./clientes.js";
+import { formCliente, formAtracao } from "./forms.js";
 
-// Detecta qual página está aberta
 if (document.getElementById("lista-atracoes")) {
-    mostrarAtracoes();
+  mostrarAtracoes();
 }
 
-if (document.querySelector("form")) {
-    configurarCadastro();
+if (document.getElementById("lista-clientes")) {
+  mostrarClientes();
 }
-import { configurarFormularioAtracao } from "./atracoesForm.js";
 
-configurarFormularioAtracao();
+formCliente();
+formAtracao();
