@@ -1,3 +1,10 @@
+// Código responsável por carregar e exibir as atrações na interface do usuário.
+// Ele busca os dados de um arquivo JSON (atracoes.json) usando fetch,
+// cria dinamicamente cards HTML com informações das atrações e insere na página.
+// Também trata erros caso a requisição falhe e exibe uma mensagem na tela.
+// Além disso, executa automaticamente ao carregar a página (DOMContentLoaded)
+// e contém uma função simples para simular a compra de ingresso.
+
 import { carregarAtracoes } from "./api.js";
 
 export async function mostrarAtracoes() {
