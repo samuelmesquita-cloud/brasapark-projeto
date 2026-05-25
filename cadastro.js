@@ -5,36 +5,44 @@
 // Também mantém os dados já existentes, adiciona o novo cliente,
 // salva novamente e limpa o formulário após o envio.
 
+// Configura o formulário de cadastro de clientes e envia para o backend.
+// Em vez de usar localStorage, agora os dados são enviados via API (Express + SQLite).
+
 export function configurarCadastro() {
     const form = document.querySelector("form");
 
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const nome = document.getElementById("nome").value;
-        const email = document.getElementById("email").value;
-        const telefone = document.getElementById("telefone").value;
-
-        const novoCliente = {
-            id: Date.now(),
-            nome,
-            email,
-            telefone,
-            dataCadastro: new Date().toISOString()
+        const cliente = {
+            nome: document.getElementById("nome").value,
+            email: document.getElementById("email").value,
+            telefone: document.getElementById("telefone").value
         };
 
-        // pega dados já salvos
-        const clientes = JSON.parse(localStorage.getItem("clientes")) || [];
+        try {
+            const response = await fetch("http://localhost:3000/clientes", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(cliente)
+            });
 
-        // adiciona novo cliente
-        clientes.push(novoCliente);
+            if (!response.ok) {
+                throw new Error("Erro ao cadastrar cliente");
+            }
 
-        // salva novamente
-        localStorage.setItem("clientes", JSON.stringify(clientes));
+            const data = await response.json();
 
-        console.log("Cliente salvo:", novoCliente);
+            console.log("Cliente salvo no backend:", data);
 
-        alert("Cadastro realizado com sucesso!");
-        form.reset();
+            alert("Cadastro realizado com sucesso!");
+            form.reset();
+
+        } catch (error) {
+            console.error(error);
+            alert("Erro ao cadastrar cliente");
+        }
     });
 }
