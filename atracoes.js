@@ -5,29 +5,66 @@
 // Além disso, executa automaticamente ao carregar a página (DOMContentLoaded)
 // e contém uma função simples para simular a compra de ingresso.
 
-import { getAtracoes, deleteAtracao } from "./api.js";
+const API = "http://localhost:3000/atracoes";
 
+
+// =======================
+// LISTAR ATRAÇÕES (GET)
+// =======================
 export async function mostrarAtracoes() {
-  const lista = document.getElementById("lista-atracoes");
+  try {
+    const res = await fetch(API);
+    const data = await res.json();
 
-  const atracoes = await getAtracoes();
+    const lista = document.getElementById("lista-atracoes");
+    lista.innerHTML = "";
 
-  lista.innerHTML = "";
+    data.forEach(a => {
+      const div = document.createElement("div");
 
-  atracoes.forEach(a => {
-    const div = document.createElement("div");
+      div.innerHTML = `
+        <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+          <h3>${a.nome}</h3>
+          <p>${a.descricao || ""}</p>
+          <p>Tipo: ${a.tipo}</p>
+          <p>Status: ${a.status}</p>
+        </div>
+      `;
 
-    div.innerHTML = `
-      <h3>${a.nome}</h3>
-      <p>${a.descricao}</p>
-      <button onclick="remover(${a.id})">Excluir</button>
-    `;
+      lista.appendChild(div);
+    });
 
-    lista.appendChild(div);
+  } catch (err) {
+    console.error("Erro ao listar atrações:", err);
+  }
+}
+
+
+// =======================
+// CADASTRAR ATRAÇÃO (POST)
+// =======================
+export function configurarCadastroAtracao() {
+  const form = document.getElementById("form-atracao");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const atracao = {
+      nome: document.getElementById("nome").value,
+      descricao: document.getElementById("descricao").value,
+      tipo: document.getElementById("tipo").value,
+      alturaMin: Number(document.getElementById("altura").value),
+      capacidade: Number(document.getElementById("capacidade").value),
+      status: document.getElementById("status").value
+    };
+
+    await fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(atracao)
+    });
+
+    alert("Atração cadastrada!");
+    form.reset();
   });
-
-  window.remover = async function (id) {
-    await deleteAtracao(id);
-    mostrarAtracoes();
-  };
 }
