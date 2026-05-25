@@ -4,51 +4,56 @@
 // Em seguida, salva os dados no localStorage do navegador, permitindo
 // armazenamento local sem banco de dados, e limpa o formulário após o envio.
 
+// Configura o formulário de atrações e envia os dados para o backend.
+// Substitui o uso de localStorage por requisição HTTP para a API.
+
 export function configurarFormularioAtracao() {
     const form = document.getElementById("form-atracao");
 
     if (!form) return;
 
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const nome = document.getElementById("nome").value;
-        const descricao = document.getElementById("descricao").value;
-        const tipo = document.getElementById("tipo").value;
-        const altura = document.getElementById("altura").value;
-        const capacidade = document.getElementById("capacidade").value;
-        const status = document.getElementById("status").value;
+        const atracao = {
+            nome: document.getElementById("nome").value,
+            descricao: document.getElementById("descricao").value,
+            tipo: document.getElementById("tipo").value,
+            alturaMin: Number(document.getElementById("altura").value),
+            capacidade: Number(document.getElementById("capacidade").value),
+            status: document.getElementById("status").value
+        };
 
-        // Validação
-        if (!nome || !descricao) {
+        // validação básica
+        if (!atracao.nome || !atracao.descricao) {
             alert("Preencha os campos obrigatórios!");
             return;
         }
 
-        const novaAtracao = {
-            id: Date.now(),
-            nome,
-            descricao,
-            tipo,
-            alturaMin: Number(altura),
-            capacidade: Number(capacidade),
-            status,
-            dataCadastro: new Date().toISOString()
-        };
+        try {
+            const response = await fetch("http://localhost:3000/atracoes", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(atracao)
+            });
 
-        // pega dados existentes
-        const atracoes = JSON.parse(localStorage.getItem("atracoes")) || [];
+            if (!response.ok) {
+                throw new Error("Erro ao cadastrar atração");
+            }
 
-        // adiciona nova
-        atracoes.push(novaAtracao);
+            const data = await response.json();
 
-        // salva
-        localStorage.setItem("atracoes", JSON.stringify(atracoes));
+            console.log("Atração salva no backend:", data);
 
-        console.log("Atração cadastrada:", novaAtracao);
+            alert("Atração cadastrada com sucesso!");
+            form.reset();
 
-        alert("Atração cadastrada com sucesso!");
-
-        form.reset();
+        } catch (error) {
+            console.error(error);
+            alert("Erro ao cadastrar atração");
+        }
     });
+}
 }
