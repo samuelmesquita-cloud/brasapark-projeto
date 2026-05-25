@@ -1,3 +1,9 @@
+// Função responsável por configurar o formulário de cadastro de atrações.
+// Ela captura os dados digitados pelo usuário, valida os campos obrigatórios
+// e cria um objeto de nova atração com ID único e data de cadastro.
+// Em seguida, salva os dados no localStorage do navegador, permitindo
+// armazenamento local sem banco de dados, e limpa o formulário após o envio.
+
 export function configurarFormularioAtracao() {
     const form = document.getElementById("form-atracao");
 
