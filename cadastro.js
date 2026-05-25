@@ -8,41 +8,27 @@
 // Configura o formulário de cadastro de clientes e envia para o backend.
 // Em vez de usar localStorage, agora os dados são enviados via API (Express + SQLite).
 
-export function configurarCadastro() {
-    const form = document.querySelector("form");
+const API = "http://localhost:3000/clientes";
 
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+export function configurarCadastroCliente() {
+  const form = document.getElementById("form-cliente");
 
-        const cliente = {
-            nome: document.getElementById("nome").value,
-            email: document.getElementById("email").value,
-            telefone: document.getElementById("telefone").value
-        };
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-        try {
-            const response = await fetch("http://localhost:3000/clientes", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(cliente)
-            });
+    const cliente = {
+      nome: document.getElementById("nome_cliente").value,
+      email: document.getElementById("email_cliente").value,
+      telefone: document.getElementById("telefone_cliente").value
+    };
 
-            if (!response.ok) {
-                throw new Error("Erro ao cadastrar cliente");
-            }
-
-            const data = await response.json();
-
-            console.log("Cliente salvo no backend:", data);
-
-            alert("Cadastro realizado com sucesso!");
-            form.reset();
-
-        } catch (error) {
-            console.error(error);
-            alert("Erro ao cadastrar cliente");
-        }
+    await fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(cliente)
     });
+
+    alert("Cliente cadastrado!");
+    form.reset();
+  });
 }
