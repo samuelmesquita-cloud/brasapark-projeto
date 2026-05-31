@@ -1,0 +1,26 @@
+[
+  {
+    "nome": "Montanha Flamejante",
+    "descricao": "Montanha-russa radical com efeitos de fogo",
+    "tipo": "Radical",
+    "alturaMin": 140
+  },
+  {
+    "nome": "Torre Solar",
+    "descricao": "Queda livre com vista panorâmica",
+    "tipo": "Radical",
+    "alturaMin": 130
+  },
+  {
+    "nome": "Fênix — O Voo do Renascimento",
+    "descricao": "Barco viking gigante",
+    "tipo": "Familiar",
+    "alturaMin": 120
+  },
+  {
+    "nome": "Mini Magminhos",
+    "descricao": "Playground infantil colorido",
+    "tipo": "Infantil",
+    "alturaMin": 80
+  }
+]
