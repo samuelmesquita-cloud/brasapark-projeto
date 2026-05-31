@@ -1,0 +1,56 @@
+[
+  {
+    "nome": "Montanha Flamejante",
+    "descricao": "Uma montanha-russa radical com curvas intensas e efeitos de fogo.",
+    "tipo": "Radical",
+    "alturaMin": 140
+  },
+  {
+    "nome": "Torre Solar",
+    "descricao": "Queda livre de grande altura com vista panorâmica do parque.",
+    "tipo": "Radical",
+    "alturaMin": 130
+  },
+  {
+    "nome": "Fênix – O Voo do Renascimento",
+    "descricao": "Barco viking gigante que balança até o limite da emoção.",
+    "tipo": "Familiar",
+    "alturaMin": 120
+  },
+  {
+    "nome": "Roda Gigante Lunar",
+    "descricao": "Aproveite uma vista incrível de todo o parque em um passeio tranquilo.",
+    "tipo": "Familiar",
+    "alturaMin": 100
+  },
+  {
+    "nome": "Carrossel Encantado",
+    "descricao": "Diversão clássica para todas as idades com música e luzes.",
+    "tipo": "Infantil",
+    "alturaMin": 80
+  },
+  {
+    "nome": "Mini Magminhos",
+    "descricao": "Área de playground colorida para crianças pequenas.",
+    "tipo": "Infantil",
+    "alturaMin": 70
+  },
+  {
+    "nome": "Splash Vulcânico",
+    "descricao": "Atração aquática com descida emocionante e muita água.",
+    "tipo": "Radical",
+    "alturaMin": 130
+  },
+  {
+    "nome": "Trenzinho do Parque",
+    "descricao": "Passeio leve e divertido por todo o parque.",
+    "tipo": "Familiar",
+    "alturaMin": 90
+  },
+  {
+    "nome": "Labirinto de Lava",
+    "descricao": "Desafio cheio de caminhos misteriosos e surpresas.",
+    "tipo": "Familiar",
+    "alturaMin": 100
+  }
+]
