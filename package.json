@@ -1,0 +1,22 @@
+{
+  "name": "brasapark-frontend",
+  "version": "1.0.0",
+  "description": "Frontend do projeto Brasa Park integrado ao backend Express e SQLite",
+  "main": "index.js",
+  "scripts": {
+    "start": "live-server",
+    "dev": "live-server"
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "bootstrap",
+    "mvc",
+    "brasapark"
+  ],
+  "author": "Sarah",
+  "license": "ISC",
+  "dependencies": {
+    "live-server": "^1.2.2"
+  }
+}
