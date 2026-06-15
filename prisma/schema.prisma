@@ -1,0 +1,21 @@
+model Atracao {
+  id          Int       @id @default(autoincrement())
+  nome        String
+  descricao   String?
+  tipo        String
+  alturaMin   Int
+  capacidade  Int
+  status      String    @default("Ativa")
+
+  clientes    Cliente[]
+}
+
+model Cliente {
+  id         Int     @id @default(autoincrement())
+  nome       String
+  email      String  @unique
+  telefone   String
+
+  atracaoId  Int
+  atracao    Atracao @relation(fields: [atracaoId], references: [id], onDelete: Cascade)
+}
