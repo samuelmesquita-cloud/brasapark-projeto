@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+
+    Cadastro de Atração
+
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="./css/style2.css"
+  >
+
+</head>
+
+<body>
+
+<div class="background-overlay">
+
+  <main class="container">
+
+    <section class="info-side">
+
+      <img
+        src="./assets/logo.png"
+        class="brand-logo"
+      >
+
+      <h1>
+
+        Criar Nova Atração
+
+      </h1>
+
+    </section>
+
+    <section class="form-side">
+
+      <div class="glass-card">
+
+        <h2>
+
+          Cadastro de Atração
+
+        </h2>
+
+        <form id="form-atracao">
+
+          <input
+            id="nome"
+            placeholder="Nome"
+            required
+          >
+
+          <input
+            id="descricao"
+            placeholder="Descrição"
+          >
+
+          <input
+            id="tipo"
+            placeholder="Tipo"
+          >
+
+          <input
+            id="alturaMin"
+            type="number"
+            placeholder="Altura mínima"
+          >
+
+          <input
+            id="capacidade"
+            type="number"
+            placeholder="Capacidade"
+          >
+
+          <select id="status">
+
+            <option value="Ativa">
+              Ativa
+            </option>
+
+            <option value="Manutenção">
+              Manutenção
+            </option>
+
+            <option value="Inativa">
+              Inativa
+            </option>
+
+          </select>
+
+          <button
+            type="submit"
+            class="btn-main"
+          >
+
+            Cadastrar
+
+          </button>
+
+        </form>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<script
+  type="module"
+  src="./js/cadastroAtracao.js">
+</script>
+
+</body>
+</html>
