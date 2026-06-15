@@ -1,28 +1,37 @@
-// Arquivo principal de inicialização do frontend da aplicação.
-// Ele verifica qual página está sendo carregada e executa as funções apropriadas:
-// - Se existir a lista de atrações, chama a função para exibi-las.
-// - Se existir um formulário, ativa o cadastro de clientes.
-// Também inicializa o formulário de atrações, conectando os eventos necessários
-// para cadastro e manipulação de dados no localStorage.
+import { api } from "./api.js";
 
-import { mostrarAtracoes, configurarCadastroAtracao } from "./atracoes.js";
-import { configurarCadastroCliente } from "./clientes.js";
+async function loadAtracoes() {
+  try {
+    const lista = document.getElementById("lista-atracoes");
 
-document.addEventListener("DOMContentLoaded", () => {
+    const atracoes = await api.getAtracoes();
 
-  // LISTAGEM ATRAÇÕES
-  if (document.getElementById("lista-atracoes")) {
-    mostrarAtracoes();
+    if (!atracoes || atracoes.length === 0) {
+      lista.innerHTML = "<p>Nenhuma atração encontrada.</p>";
+      return;
+    }
+
+    lista.innerHTML = atracoes
+      .map((a) => `
+        <div class="col-md-4 mb-4">
+          <div class="card shadow h-100">
+            <div class="card-body">
+              <h5 class="card-title">${a.nome}</h5>
+              <p>${a.descricao || "Sem descrição"}</p>
+              <p><strong>Tipo:</strong> ${a.tipo || "-"}</p>
+              <p><strong>Status:</strong> ${a.status || "-"}</p>
+            </div>
+          </div>
+        </div>
+      `)
+      .join("");
+
+  } catch (error) {
+    console.error("Erro ao carregar atrações:", error);
+
+    const lista = document.getElementById("lista-atracoes");
+    lista.innerHTML = "<p>Erro ao carregar dados.</p>";
   }
+}
 
-  // CADASTRO ATRAÇÕES
-  if (document.getElementById("form-atracao")) {
-    configurarCadastroAtracao();
-  }
-
-  // CADASTRO CLIENTES
-  if (document.getElementById("form-cliente")) {
-    configurarCadastroCliente();
-  }
-
-});
+loadAtracoes();
