@@ -8,7 +8,6 @@
 // Configura o formulário de cadastro de clientes e envia para o backend.
 // Em vez de usar localStorage, agora os dados são enviados via API (Express + SQLite).
 
-
 const API = "http://localhost:3000/clientes";
 
 export function configurarCadastroCliente() {
