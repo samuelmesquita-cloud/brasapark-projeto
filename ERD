@@ -1,0 +1,23 @@
+┌────────────────────┐
+│      Atracao       │
+├────────────────────┤
+│ id (PK)            │
+│ nome               │
+│ descricao          │
+│ tipo               │
+│ alturaMin          │
+│ capacidade         │
+│ status             │
+└─────────┬──────────┘
+          │ 1
+          │
+          │ N
+┌─────────▼──────────┐
+│      Cliente       │
+├────────────────────┤
+│ id (PK)            │
+│ nome               │
+│ email              │
+│ telefone           │
+│ atracaoId (FK)     │
+└────────────────────┘
