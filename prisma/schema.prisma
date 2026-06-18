@@ -1,30 +1,33 @@
+// 1. Definição da conexão com o banco (adicione isso no topo)
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "file:./dev.db"
 }
 
+// 2. Definição do gerador do cliente Prisma (adicione isso também)
 generator client {
   provider = "prisma-client-js"
 }
 
+// 3. Seus modelos (que já estão certinhos)
 model Atracao {
-  id          Int       @id @default(autoincrement())
-  nome        String
-  descricao   String?
-  tipo        String
-  alturaMin   Int
-  capacidade  Int
-  status      String    @default("Ativa")
+  id         Int       @id @default(autoincrement())
+  nome       String
+  descricao  String?
+  tipo       String
+  alturaMin  Int
+  capacidade Int
+  status     String    @default("Ativa")
 
-  clientes    Cliente[]
+  clientes   Cliente[]
 }
 
 model Cliente {
-  id         Int     @id @default(autoincrement())
-  nome       String
-  email      String  @unique
-  telefone   String
+  id        Int     @id @default(autoincrement())
+  nome      String
+  email     String  @unique
+  telefone  String
 
-  atracaoId  Int
-  atracao    Atracao @relation(fields: [atracaoId], references: [id], onDelete: Cascade)
+  atracaoId Int
+  atracao   Atracao @relation(fields: [atracaoId], references: [id], onDelete: Cascade)
 }
