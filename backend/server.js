@@ -24,7 +24,9 @@ app.use(express.static(path.join(__dirname, "../frontend")));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
-
+console.log(
+  path.join(__dirname, "../../frontend")
+);
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
