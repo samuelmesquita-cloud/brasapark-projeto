@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "../frontend")));
 
 app.use("/atracoes", atracaoRoutes);
 app.use("/clientes", clienteRoutes);
