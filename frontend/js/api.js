@@ -1,4 +1,4 @@
-const API = "http://localhost:3000";
+const API = "/clientes";
 
 async function request(url, options) {
   const res = await fetch(API + url, options);
