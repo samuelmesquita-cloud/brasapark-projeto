@@ -1,8 +1,3 @@
-// Configura e inicia o servidor da aplicação utilizando Node.js e Express.
-// O código prepara a aplicação para receber requisições, organizar as rotas
-// das atrações, permitir comunicação com outras aplicações e registrar logs
-// das requisições no terminal. O servidor é iniciado na porta 3000.
-
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -18,12 +13,18 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-// Servir os arquivos do frontend
-app.use(express.static(path.join(__dirname, "../frontend")));
-
+// 1. Rotas da API primeiro
 app.use("/atracoes", atracoesRoutes);
 app.use("/clientes", clientesRoutes);
 
+// 2. Servir os arquivos do frontend por último (Fallback)
+app.use(express.static(path.join(__dirname, "../frontend")));
+
+// Caso o usuário recarregue uma página interna (ex: /cadastro), serve o index.html
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/index.html"));
+});
+
 app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
