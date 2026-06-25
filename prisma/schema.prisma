@@ -13,7 +13,7 @@ generator client {
 model Atracao {
   id         Int       @id @default(autoincrement())
   nome       String
-  descricao  String?
+  descricao  String
   tipo       String
   alturaMin  Int
   capacidade Int
