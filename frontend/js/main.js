@@ -20,6 +20,12 @@ async function loadAtracoes() {
               <p>${a.descricao || "Sem descrição"}</p>
               <p><strong>Tipo:</strong> ${a.tipo || "-"}</p>
               <p><strong>Status:</strong> ${a.status || "-"}</p>
+              <button
+                class="btn btn-danger mt-2"
+                onclick="deletarAtracao(${a.id})"
+              >
+                Excluir
+              </button>
             </div>
           </div>
         </div>
@@ -35,3 +41,30 @@ async function loadAtracoes() {
 }
 
 loadAtracoes();
+async function deletarAtracao(id) {
+
+  const confirmar = confirm(
+    "Deseja realmente excluir esta atração?"
+  );
+
+  if (!confirmar) return;
+
+  try {
+
+    await api.deleteAtracao(id);
+
+    alert("Atração excluída com sucesso!");
+
+    loadAtracoes();
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert("Erro ao excluir atração.");
+
+  }
+
+}
+
+window.deletarAtracao = deletarAtracao;
