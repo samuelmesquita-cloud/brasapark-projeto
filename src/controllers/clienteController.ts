@@ -35,8 +35,20 @@ export const update = async (req, res) => {
   }
 }
 
-export const remove = async (req: Request, res: Response) => {
-  const id = Number(req.params.id);
-  await ClienteService.delete(id);
-  res.sendStatus(204);
-};
+export const remove = async (req, res) => {
+
+   try{
+
+      await atracaoService.remove(Number(req.params.id));
+
+      return res.sendStatus(204);
+
+   }catch(error){
+
+      return res.status(404).json({
+         message:"Atração não encontrada."
+      });
+
+   }
+
+}
