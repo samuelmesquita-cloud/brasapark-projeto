@@ -15,11 +15,23 @@ export const create = async (req: Request, res: Response) => {
   res.status(201).json(result);
 };
 
-export const update = async (req: Request, res: Response) => {
-  const id = Number(req.params.id);
-  const result = await AtracaoService.update(id, req.body);
-  res.json(result);
-};
+export const update = async (req, res) => {
+  try {
+    const atracao = await atracaoService.update(
+      Number(req.params.id),
+      req.body
+    );
+
+    return res.status(200).json(atracao);
+
+  } catch (error) {
+
+    return res.status(404).json({
+      message: "Atração não encontrada."
+    });
+
+  }
+}
 
 export const remove = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
