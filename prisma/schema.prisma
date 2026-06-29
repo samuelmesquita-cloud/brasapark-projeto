@@ -1,7 +1,7 @@
 // 1. Definição da conexão com o banco (adicione isso no topo)
 datasource db {
   provider = "sqlite"
-  url      = "sqlite"
+  url      = "file:./dev.db"
 }
 
 // 2. Definição do gerador do cliente Prisma (adicione isso também)
