@@ -1,0 +1,28 @@
+GET http://localhost:3000/atracoes
+
+###
+
+POST http://localhost:3000/atracoes
+Content-Type: application/json
+
+{
+ "nome": "Torre Solar",
+ "descricao": "Queda livre",
+ "tipo": "Radical",
+ "alturaMin": 130,
+ "capacidade": 20,
+ "status": "Ativa"
+}
+
+###
+
+PUT http://localhost:3000/atracoes/1
+Content-Type: application/json
+
+{
+ "nome": "Montanha Atualizada"
+}
+
+###
+
+DELETE http://localhost:3000/atracoes/1
