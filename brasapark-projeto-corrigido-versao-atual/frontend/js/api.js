@@ -1,7 +1,4 @@
-const API_BASE =
-  window.location.port === "3000" || window.location.protocol === "file:"
-    ? ""
-    : "http://localhost:3000";
+const API_BASE = "";
 
 async function request(url, options) {
   const res = await fetch(API_BASE + url, options);
