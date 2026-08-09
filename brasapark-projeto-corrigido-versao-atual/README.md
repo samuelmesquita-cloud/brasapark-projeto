@@ -15,6 +15,8 @@ npm install
 
 ## Rodar migrations
 
+npx prisma generate
+
 npx prisma migrate dev --name init
 
 ## Rodar seed
