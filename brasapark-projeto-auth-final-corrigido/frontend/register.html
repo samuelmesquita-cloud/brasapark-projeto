@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro - Brasa Park</title>
+  <link rel="stylesheet" href="./css/style2.css">
+</head>
+<body>
+  <div class="background-overlay">
+    <main class="container">
+      <section class="info-side">
+        <img src="./logo.png" class="brand-logo" alt="Brasa Park">
+        <h1>Criar Conta</h1>
+      </section>
+
+      <section class="form-side">
+        <div class="glass-card">
+          <h2>Cadastro de Usuario</h2>
+          <p id="message" class="message"></p>
+
+          <form id="form-register">
+            <input id="nome" placeholder="Nome" required>
+            <input id="email" type="email" placeholder="Email" required>
+            <input id="senha" type="password" placeholder="Senha com 6 caracteres" minlength="6" required>
+            <button type="submit" class="btn-main">Cadastrar</button>
+            <a class="form-link" href="./login.html">Ja tenho conta</a>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./js/register.js"></script>
+</body>
+</html>
