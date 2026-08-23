@@ -1,0 +1,72 @@
+@baseUrl = http://localhost:3000
+
+### 1. Cadastro de usuario
+# A senha enviada aqui sera salva no banco como hash em Usuario.senhaHash.
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "nome": "Usuario Teste",
+  "email": "teste@brasapark.com",
+  "senha": "123456"
+}
+
+### 2. Login valido
+# Copie o token retornado e cole na variavel abaixo.
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@brasapark.com",
+  "senha": "123456"
+}
+
+### Token JWT obtido no login
+@token = cole-o-token-aqui
+
+### 3. Login com senha invalida
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@brasapark.com",
+  "senha": "senha-errada"
+}
+
+### 4. Rota publica: listar atracoes
+GET {{baseUrl}}/atracoes
+
+### 5. Rota protegida sem token: deve retornar 401
+POST {{baseUrl}}/atracoes
+Content-Type: application/json
+
+{
+  "nome": "Torre Solar",
+  "descricao": "Queda livre",
+  "tipo": "Radical",
+  "alturaMin": 130,
+  "capacidade": 20,
+  "status": "Ativa"
+}
+
+### 6. Rota protegida com token: deve cadastrar atracao
+POST {{baseUrl}}/atracoes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nome": "Torre Solar",
+  "descricao": "Queda livre",
+  "tipo": "Radical",
+  "alturaMin": 130,
+  "capacidade": 20,
+  "status": "Ativa"
+}
+
+### 7. Rota protegida com token: listar clientes
+GET {{baseUrl}}/clientes
+Authorization: Bearer {{token}}
+
+### 8. Identificar usuario autenticado pelo token
+GET {{baseUrl}}/auth/me
+Authorization: Bearer {{token}}
