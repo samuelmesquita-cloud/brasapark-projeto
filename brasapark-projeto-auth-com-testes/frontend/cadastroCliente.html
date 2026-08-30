@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comprar Ingresso</title>
+  <link rel="stylesheet" href="./css/style2.css">
+</head>
+<body>
+  <div class="background-overlay">
+    <main class="container">
+      <section class="info-side">
+        <img src="./logo.png" class="brand-logo" alt="Brasa Park">
+        <h1>Comprar Ingresso</h1>
+        <div id="user-area" class="user-area"></div>
+      </section>
+
+      <section class="form-side">
+        <div class="glass-card">
+          <h2>Cadastro Cliente</h2>
+          <p id="message" class="message"></p>
+
+          <form id="form-cliente">
+            <input id="nome" placeholder="Nome" required>
+            <input id="email" type="email" placeholder="Email" required>
+            <input id="telefone" placeholder="Telefone" required>
+            <select id="atracaoId" required></select>
+
+            <button type="submit" class="btn-main">Finalizar Compra</button>
+            <a class="form-link" href="/">Voltar para o inicio</a>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./js/cadastroCliente.js"></script>
+</body>
+</html>

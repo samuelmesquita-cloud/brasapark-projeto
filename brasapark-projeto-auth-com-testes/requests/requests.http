@@ -1,0 +1,89 @@
+@baseUrl = http://localhost:3000
+@emailTeste = aluno{{$timestamp}}@brasapark.com
+
+### 1. Cadastro de usuario
+# Esperado: 201 Created
+# A senha nunca e salva em texto puro; o backend salva somente senhaHash com bcrypt.
+# @name cadastroUsuario
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "nome": "Aluno Teste",
+  "email": "{{emailTeste}}",
+  "senha": "123456"
+}
+
+### 2. Autenticacao valida
+# Esperado: 200 OK
+# A resposta retorna user + token JWT.
+# @name loginValido
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{emailTeste}}",
+  "senha": "123456"
+}
+
+### Token capturado automaticamente da resposta do login valido
+@token = {{loginValido.response.body.$.token}}
+
+### 3. Autenticacao com credenciais invalidas
+# Esperado: 401 Unauthorized
+# Demonstra tratamento de senha incorreta.
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{emailTeste}}",
+  "senha": "senha-errada"
+}
+
+### 4. Rota publica sem autenticacao
+# Esperado: 200 OK
+# Listar atracoes e publico.
+GET {{baseUrl}}/atracoes
+
+### 5. Rota protegida sem autenticacao
+# Esperado: 401 Unauthorized
+# Criar atracao exige token JWT.
+POST {{baseUrl}}/atracoes
+Content-Type: application/json
+
+{
+  "nome": "Torre Solar Sem Token",
+  "descricao": "Teste de rota protegida sem autenticacao",
+  "tipo": "Radical",
+  "alturaMin": 130,
+  "capacidade": 20,
+  "status": "Ativa"
+}
+
+### 6. A mesma rota protegida com autenticacao
+# Esperado: 201 Created
+# O token obtido no login e enviado no header Authorization.
+# @name criarAtracaoComToken
+POST {{baseUrl}}/atracoes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nome": "Torre Solar Com Token",
+  "descricao": "Teste de rota protegida com autenticacao JWT",
+  "tipo": "Radical",
+  "alturaMin": 130,
+  "capacidade": 20,
+  "status": "Ativa"
+}
+
+### 7. Identificar usuario autenticado pelo token
+# Esperado: 200 OK
+# Demonstra que o middleware le o token e identifica o usuario.
+GET {{baseUrl}}/auth/me
+Authorization: Bearer {{token}}
+
+### 8. Rota de clientes protegida com token
+# Esperado: 200 OK
+GET {{baseUrl}}/clientes
+Authorization: Bearer {{token}}

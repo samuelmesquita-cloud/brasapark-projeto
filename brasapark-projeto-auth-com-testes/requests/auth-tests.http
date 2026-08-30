@@ -1,0 +1,66 @@
+@baseUrl = http://localhost:3000
+@email = apresentacao{{$timestamp}}@brasapark.com
+
+### PASSO 1 - Cadastrar usuario
+# @name register
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "nome": "Usuario da Apresentacao",
+  "email": "{{email}}",
+  "senha": "123456"
+}
+
+### PASSO 2 - Login correto
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "senha": "123456"
+}
+
+### O REST Client pega o token da resposta acima automaticamente
+@jwt = {{login.response.body.$.token}}
+
+### PASSO 3 - Login com senha errada
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "senha": "errada"
+}
+
+### PASSO 4 - Tentar acessar rota protegida sem token
+POST {{baseUrl}}/atracoes
+Content-Type: application/json
+
+{
+  "nome": "Atracao Bloqueada",
+  "descricao": "Esta requisicao deve falhar sem token",
+  "tipo": "Teste",
+  "alturaMin": 100,
+  "capacidade": 10,
+  "status": "Ativa"
+}
+
+### PASSO 5 - Acessar rota protegida com token
+POST {{baseUrl}}/atracoes
+Content-Type: application/json
+Authorization: Bearer {{jwt}}
+
+{
+  "nome": "Atracao Autenticada",
+  "descricao": "Esta requisicao funciona porque envia JWT",
+  "tipo": "Teste",
+  "alturaMin": 100,
+  "capacidade": 10,
+  "status": "Ativa"
+}
+
+### PASSO 6 - Conferir usuario autenticado
+GET {{baseUrl}}/auth/me
+Authorization: Bearer {{jwt}}
