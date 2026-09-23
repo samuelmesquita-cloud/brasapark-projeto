@@ -1,0 +1,34 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.app = void 0;
+exports.createApp = createApp;
+const path_1 = __importDefault(require("path"));
+const cors_1 = __importDefault(require("cors"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const express_1 = __importDefault(require("express"));
+const morgan_1 = __importDefault(require("morgan"));
+const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
+const atracaoRoutes_1 = __importDefault(require("./routes/atracaoRoutes"));
+const clienteRoutes_1 = __importDefault(require("./routes/clienteRoutes"));
+const userImageRoutes_1 = __importDefault(require("./routes/userImageRoutes"));
+const errorHandler_1 = require("./middleware/errorHandler");
+dotenv_1.default.config();
+function createApp() {
+    const app = (0, express_1.default)();
+    app.use((0, cors_1.default)());
+    app.use(express_1.default.json());
+    if (process.env.NODE_ENV !== "test")
+        app.use((0, morgan_1.default)("dev"));
+    app.use("/uploads", express_1.default.static(path_1.default.join(process.cwd(), "uploads")));
+    app.use(express_1.default.static(path_1.default.join(__dirname, "../frontend")));
+    app.use("/auth", authRoutes_1.default);
+    app.use("/atracoes", atracaoRoutes_1.default);
+    app.use("/clientes", clienteRoutes_1.default);
+    app.use("/api/users", userImageRoutes_1.default);
+    app.use(errorHandler_1.errorHandler);
+    return app;
+}
+exports.app = createApp();

@@ -1,0 +1,48 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const controller = __importStar(require("../controllers/clienteController"));
+const authMiddleware_1 = require("../middleware/authMiddleware");
+const errorHandler_1 = require("../middleware/errorHandler");
+const validate_1 = require("../middleware/validate");
+const clienteSchemas_1 = require("../schemas/clienteSchemas");
+const commonSchemas_1 = require("../schemas/commonSchemas");
+const router = (0, express_1.Router)();
+router.get("/", authMiddleware_1.authMiddleware, (0, errorHandler_1.asyncHandler)(controller.getAll));
+router.post("/", authMiddleware_1.authMiddleware, (0, validate_1.validate)(clienteSchemas_1.createClienteSchema), (0, errorHandler_1.asyncHandler)(controller.create));
+router.put("/:id", authMiddleware_1.authMiddleware, (0, validate_1.validate)(clienteSchemas_1.updateClienteSchema), (0, errorHandler_1.asyncHandler)(controller.update));
+router.delete("/:id", authMiddleware_1.authMiddleware, (0, validate_1.validate)(commonSchemas_1.idParamsSchema), (0, errorHandler_1.asyncHandler)(controller.remove));
+exports.default = router;
