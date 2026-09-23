@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Brasa Park</title>
+  <link rel="stylesheet" href="./css/style2.css">
+</head>
+<body>
+  <div class="background-overlay">
+    <main class="container">
+      <section class="info-side">
+        <img src="./logo.png" class="brand-logo" alt="Brasa Park">
+        <h1>Admin</h1>
+        <div id="user-area" class="user-area"></div>
+      </section>
+
+      <section class="form-side">
+        <div class="glass-card">
+          <h2>Gerenciar Atracoes</h2>
+          <p id="message" class="message"></p>
+
+          <form id="form">
+            <input id="nome" placeholder="Nome" required>
+            <input id="descricao" placeholder="Descricao">
+            <input id="tipo" placeholder="Tipo" required>
+            <input id="alturaMin" type="number" placeholder="Altura minima" required>
+            <input id="capacidade" type="number" placeholder="Capacidade" required>
+            <button type="submit" class="btn-main">Criar</button>
+          </form>
+
+          <div id="lista" class="admin-list"></div>
+          <a class="form-link" href="/">Voltar para o inicio</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./js/admin.js"></script>
+</body>
+</html>

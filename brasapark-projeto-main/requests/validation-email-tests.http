@@ -1,0 +1,82 @@
+@baseUrl = http://localhost:3000
+@email = validacao{{$timestamp}}@brasapark.com
+
+### 1. Cadastro valido que dispara o e-mail de boas-vindas
+# Esperado: 201 Created. Veja no terminal a URL de previa do Ethereal.
+# @name cadastroComEmail
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "nome": "Aluno Validacao",
+  "email": "{{email}}",
+  "senha": "123456"
+}
+
+### 2. Login para capturar o token
+# @name loginValidacao
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "senha": "123456"
+}
+
+@tokenValidacao = {{loginValidacao.response.body.$.token}}
+
+### 3. Corpo invalido
+# Esperado: 400 com issues indicando body.email e body.senha.
+# Nenhum usuario e criado e nenhum e-mail e enviado.
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "nome": "A",
+  "email": "email-invalido",
+  "senha": "123"
+}
+
+### 4. Parametro de rota invalido
+# Esperado: 400 com issue em params.id.
+DELETE {{baseUrl}}/atracoes/abc
+Authorization: Bearer {{tokenValidacao}}
+
+### 5. Query invalida
+# Esperado: 400 porque limit deve ser um numero inteiro positivo.
+GET {{baseUrl}}/atracoes?limit=-5
+
+### 6. Query valida
+# Esperado: 200, filtrando atracoes ativas e limitando o resultado.
+GET {{baseUrl}}/atracoes?status=Ativa&limit=5
+
+### 7. Conflito de email
+# Esperado: 409 com field "email". Nenhum novo e-mail e enviado.
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "nome": "Aluno Duplicado",
+  "email": "{{email}}",
+  "senha": "123456"
+}
+
+### 8. Recurso inexistente
+# Esperado: 404 ao tentar excluir um ID valido que nao existe.
+DELETE {{baseUrl}}/atracoes/999999999
+Authorization: Bearer {{tokenValidacao}}
+
+### 9. Cadastro de atracao valido
+# Esperado: 201.
+POST {{baseUrl}}/atracoes
+Authorization: Bearer {{tokenValidacao}}
+Content-Type: application/json
+
+{
+  "nome": "Montanha da Validacao",
+  "descricao": "Criada pelo arquivo de testes",
+  "tipo": "Radical",
+  "alturaMin": 120,
+  "capacidade": 24,
+  "status": "Ativa"
+}
