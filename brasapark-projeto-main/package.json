@@ -1,0 +1,55 @@
+{
+   "name": "brasapark",
+   "version": "1.0.0",
+   "scripts": {
+      "dev": "ts-node-dev --respawn src/server.ts",
+      "build": "tsc",
+      "start": "node dist/server.js",
+      "seed": "ts-node prisma/seed.ts",
+      "test:db": "cross-env DATABASE_URL=file:./test.db prisma db push --skip-generate",
+      "test": "npm run test:db && cross-env NODE_ENV=test DATABASE_URL=file:./test.db JWT_SECRET=test-secret vitest run --config vitest.server.config.mjs",
+      "front:test": "vitest run --config vitest.front.config.mjs",
+      "test:coverage": "npm run test:db && cross-env NODE_ENV=test DATABASE_URL=file:./test.db JWT_SECRET=test-secret vitest run --coverage --config vitest.server.config.mjs",
+      "front:coverage": "vitest run --coverage --config vitest.front.config.mjs",
+      "coverage": "npm run test:coverage && npm run front:coverage",
+      "e2e:server": "cross-env-shell NODE_ENV=test DATABASE_URL=file:./e2e.db JWT_SECRET=e2e-secret PORT=3100 \"prisma db push --skip-generate && ts-node prisma/seed.ts && ts-node src/server.ts\"",
+      "e2e:install": "playwright install chromium",
+      "e2e": "playwright test"
+   },
+   "dependencies": {
+      "@prisma/client": "^5.15.0",
+      "bcryptjs": "^2.4.3",
+      "cors": "^2.8.5",
+      "dotenv": "^16.4.5",
+      "express": "^4.19.2",
+      "jsonwebtoken": "^9.0.2",
+      "morgan": "^1.10.0",
+      "multer": "^2.4.0",
+      "nodemailer": "^6.10.1",
+      "zod": "^3.25.76"
+   },
+   "devDependencies": {
+      "@playwright/test": "^1.63.0",
+      "@types/bcryptjs": "^2.4.6",
+      "@types/cors": "^2.8.19",
+      "@types/express": "^5.0.3",
+      "@types/jsonwebtoken": "^9.0.6",
+      "@types/morgan": "^1.9.10",
+      "@types/multer": "^2.0.0",
+      "@types/node": "^24.0.3",
+      "@types/nodemailer": "^6.4.17",
+      "@types/supertest": "^7.2.1",
+      "@vitest/coverage-v8": "^5.0.1",
+      "cross-env": "^10.1.0",
+      "jsdom": "^30.1.0",
+      "prisma": "^5.15.0",
+      "supertest": "^7.2.2",
+      "ts-node": "^10.9.2",
+      "ts-node-dev": "^2.0.0",
+      "typescript": "^5.8.3",
+      "vitest": "^5.0.1"
+   },
+   "prisma": {
+      "seed": "ts-node prisma/seed.ts"
+   }
+}
