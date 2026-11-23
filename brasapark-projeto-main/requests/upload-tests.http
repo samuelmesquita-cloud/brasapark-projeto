@@ -11,6 +11,7 @@ Content-Type: application/json
   "senha": "123456"
 }
 
+###
 @uploadToken = {{loginUpload.response.body.$.token}}
 
 ### 2. Envio sem autenticacao
